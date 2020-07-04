@@ -14,9 +14,11 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     //marginTop: 20,
-    borderRadius: 2,
+    borderRadius: 10,
     borderWidth: 3,
     borderColor: Color.primary,
+    paddingVertical: 5,
+    paddingHorizontal:10,
   },
   valueText: {
     color: Color.primary,

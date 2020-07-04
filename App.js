@@ -5,44 +5,59 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
+import { AppLoading } from "expo";
 
+import * as Font from "expo-font";
 import Color from "./components/constants/Colors";
-
 import Header from "./components/Header";
 import GameScreen from "./components/screens/GameScreen";
 import NotifBar from "./components/NotifBar";
 import StartGameScreen from "./components/screens/StartGameScreen";
 import GameOverScreen from "./components/screens/GameOverScreen";
+const fontLoader = () => {
+  console.log("fontloader executed");
+
+  return Font.loadAsync({
+    "senReg": require("./assets/fonts/Sen-Regular.ttf"),
+    "senBold": require("./assets/fonts/Sen-Bold.ttf"),
+  });
+};
 
 export default function App() {
   const [userInput, setUserInput] = useState();
-  const [attempts, setAttempts] = useState(1);
+  const [attempts, setAttempts] = useState();
+  const [dataLoaded, setDataLoaded] = useState(false);
+  if (!dataLoaded) {
+    return (
+      <AppLoading
+        startAsync={fontLoader}
+        onFinish={() => setDataLoaded(true)}
+        onError={(err) => console.log(err)}
+      />
+    );
+  }
 
   const inputHandler = (inputFromSGS) => {
     setUserInput(inputFromSGS);
   };
-  const attemptsHandler = (inputFromGS) => {
+  const attemptHandler = (inputFromGS) => {
     setAttempts(inputFromGS);
-    console.log(inputFromGS);
-    
+  };
+  const resetHandler = () => {
+    setUserInput();
+    setAttempts();
   };
 
   let displayScreen = <StartGameScreen outToApp={inputHandler} />;
   if (userInput) {
     if (attempts) {
       displayScreen = (
-        <GameOverScreen
-          attempts={attempts}
-          resetGame={() => {
-            setUserInput();
-          }}
-        />
+        <GameOverScreen attempts={attempts} onReset={resetHandler} />
       );
-    } else {
+    } else
       displayScreen = (
-        <GameScreen userInput={userInput} outToAppFromGS={attemptsHandler} />
+        <GameScreen userInput={userInput} attemptFromGS={attemptHandler} />
       );
-    }
   }
 
   return (

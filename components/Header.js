@@ -1,12 +1,14 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
 
+import RegularText from "./reusables/textStyles/Regular";
+
 import Color from "./constants/Colors";
 
 export default function Header() {
   return (
     <View style={styles.header}>
-      <Text style={styles.text}> Guess A Number</Text>
+      <RegularText style={styles.text}> Guess A Number</RegularText>
     </View>
   );
 }
@@ -22,6 +24,6 @@ const styles = StyleSheet.create({
   text: {
     color: Color.background,
     fontSize: 28,
-    fontWeight: "bold",
+    //fontWeight: "bold",
   },
 });

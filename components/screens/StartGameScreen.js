@@ -1,13 +1,8 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  Alert,
-  Keyboard,
-  ImagePropTypes,
-} from "react-native";
+import { View, Text, StyleSheet, Button, Alert, Keyboard } from "react-native";
+import HeadingText from "../reusables/textStyles/Headings";
+import RegularText from "../reusables/textStyles/Regular";
+import PButton from "../reusables/PButton";
 
 import Card from "../reusables/Card";
 import Color from "../constants/Colors";
@@ -48,11 +43,12 @@ export default function StartGameScreen(props) {
         <Text style={styles.confirmedText}>Entered Number</Text>
         <Value> {value} </Value>
         <View style={styles.confirmedText}>
-          <Button
-            title="Start Game!"
-            color={Color.accent}
-            onPress={()=>props.outToApp(value)}
-          />
+          <PButton
+            //color={Color.accent}
+            onPress={() => props.outToApp(value)}
+          >
+            START GAME!
+          </PButton>
         </View>
       </Card>
     );
@@ -62,7 +58,7 @@ export default function StartGameScreen(props) {
   return (
     <View style={styles.root}>
       <View style={styles.root}>
-        <Text style={styles.text}>Guess A Number!</Text>
+        <HeadingText style={styles.text}>GUESS A NUMBER</HeadingText>
       </View>
       <Card style={styles.inputView}>
         <View>
@@ -110,8 +106,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    fontWeight: "bold",
-    fontSize: 70,
+    fontSize: 65,
     color: Color.primary,
   },
   inputView: {
